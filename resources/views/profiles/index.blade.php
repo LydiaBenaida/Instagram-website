@@ -9,28 +9,28 @@
         <div class="col-9 pt-5">
             <div class="justify-content-between d-flex align-items-baseline">
 
-               <h1>{{ $user->username  }}</h1>
+               <div class="d-flex align-content-center pb-4">
+                   <div class=" h4">{{ $user->username  }}</div>
+                <follow-button user-id="{{$user->id}}" follows="{{$follows}}"></follow-button>
 
-                @guest
-
-                @else
+               </div>
+                @can('update',$user->profile)
                     <a href="/p/create">Add a new post</a>
-                @endguest
+                @endcan
+
+
 
             </div>
 
 
-            @guest
-
-            @else
+            @can('update',$user->profile)
                 <a href="/profile/{{$user->id}}/edit">Edit profile</a>
-
-            @endguest
+            @endcan
 
                 <div class="d-flex">
-                <div class="pr-3"><strong>{{$user->posts->count()}}</strong> publications</div>
-                <div class="pr-3"><strong>260</strong> abonnés</div>
-                <div class="pr-3"><strong>680</strong> abonnements</div>
+                <div class="pr-3"><strong>{{$postCount }}</strong> publications</div>
+                <div class="pr-3"><strong>{{$followerCount}}</strong> abonnés</div>
+                <div class="pr-3"><strong>{{$followingCount}}</strong> abonnements</div>
             </div>
             <div class="pt-3"> <strong>{{$user->profile->title}}</strong></div>
             <div>{{$user->profile->description}}</div>
